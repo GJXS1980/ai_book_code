@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?><nlp>
+  <version>1.1</version>
+  <rawtext>从厨挑紫的房间</rawtext>
+  <confidence>19</confidence>
+  <engine>local</engine>
+  <result>
+    <focus>f|start|pick|block|terminal</focus>
+    <confidence>90|19|14|38|3</confidence>
+    <object>
+      <f id="65535">从</f>
+      <start id="2">厨</start>
+      <pick id="65535">挑</pick>
+      <block id="4">紫的</block>
+      <terminal id="1">房间</terminal>
+    </object>
+  </result>
+</nlp>
+

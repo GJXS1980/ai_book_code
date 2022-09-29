@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+  <!--          
+  *    false                                              裁剪掉的区域
+  *                                                          180
+  *                              -90                                              90
+  *                                                              0
+  -->
+
+<launch>
+
+  <node name="arvlidarNode"          pkg="arvlidar_ros"  type="arvlidarNode" output="screen">
+  <param name="serial_port"         type="string" value="/dev/hg_laser"/>
+  <param name="serial_baudrate"     type="int"    value="115200"/><!--A1/A2 -->
+  <!--param name="serial_baudrate"     type="int"    value="256000"--><!--A3 -->
+  <param name="frame_id"            type="string" value="laser_frame"/>
+  <param name="inverted"            type="bool"   value="false"/>
+  <param name="angle_compensate"    type="bool"   value="true"/>
+  <param name="min_angle"    type="int"   value="-80"/>
+  <param name="max_angle"    type="int"   value="80"/>
+  </node>
+
+</launch>

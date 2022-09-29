@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<launch>
+<!-- include file="$(find cbot_control)/launch/cmd_vel_mux.launch"/ -->
+<arg name="input_cmd_vel" default="/cmd_vel"/>
+  <node pkg="castlex_bringup" type="cbot_stm32_bridge.py" name="cbot_stm32_bridge" output="screen" respawn="false" respawn_delay="0" >
+    <param name="port" value="/dev/stm32"/>
+    <param name="baud" value="115200"/>
+    <param name="input_cmd_vel" value="$(arg input_cmd_vel)"/>
+    <!-- 轮子转一圈编码器输出多少脉冲 -->
+    <!-- 因为不能修改下位机，因此根据轮子传动比更改该数值：1440 * 2.214 * 1.5 / 2.214 -->
+    <param name="encoder_per_loop" value="3188"/>
+    <!-- 轮子直径/m -->
+    <param name="wheel_diameter" value="0.105"/>
+    <!-- 底盘自身坐标系与世界坐标系夹角 -->
+    <param name="chassis_a" value="0"/>
+    <!-- 轮子之间的距离 -->
+    <param name="chassis_l" value="0.16"/>
+    <!--三轮全向轮模型中，线速度只与轮子直径有关，而角速度与轮子的直径以及轮子到底盘中心的距离有关。
+    因此线速度的标定调整轮子直径这个参数，角速度标定调整轮子到底盘中心的距离这个参数-->
+  </node>
+
+
+    <!-- 设置机器人离障碍物的距离 -->
+    <group ns="Distance">
+      <param name="N" value="0.15" />    <!-- 靠近障碍物多远停下来 -->
+      <param name="F" value="0.30" />    <!-- 远离障碍物多远停下来 -->
+    </group>
+
+    <!-- 设置机器人运动时的速度 -->
+    <group ns="Speed">
+      <param name="F" value="0.05" />     <!-- 靠近障碍物的速度 -->
+      <param name="B" value="0.1" />     <!-- 远离障碍物的速度 -->
+    </group>
+
+	<!-- 启动超声波节点 -->
+    <node pkg="object_detect" name="ultrasonic_test" type="ultrasonic_test.py" output="screen" />   
+
+
+
+</launch>

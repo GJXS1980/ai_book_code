@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<launch>
+<!--  激光雷达的位置  -->
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser4" 
+    args="0.12 0.0 0.15 2.36 0.0 0.0 /base_link /laser_frame 40" />
+  <!--  激光雷达  -->
+  <include file="$(find arvlidar_ros)/launch/castlexlidar_A2.launch"/>
+
+  <!-- 启动底盘  -->
+  <include file="$(find castlex_bringup)/launch/castlex_stm32_bringup.launch"/>
+
+    <!-- 启动gmapping -->
+  <include file="$(find castlex_slam)/launch/gmapping/gmapping.launch"/>
+
+    <!-- 加载服务机器人模型  -->
+  <include file="$(find castlex_description)/launch/castlex_urdf.launch"/>
+
+  <!-- 启动键盘节点  -->
+  <include file="$(find castlex_control)/launch/castlex_teleop_key.launch"/> 
+
+  <!-- 启动RVIZ -->>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find castlex_slam)/rviz/slam.rviz" required="true" />
+</launch>
+
+

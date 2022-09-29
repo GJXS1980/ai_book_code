@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<launch>
+
+  <include file="$(find rplidar_ros)/launch/rplidar_A2.launch"/>
+
+  <!-- 启动底盘  -->
+  <include file="$(find castlex_bringup)/launch/castlex_stm32_bridge.launch"/>
+
+  <!-- 启动导航  -->
+  <include file="$(find castlex_navigation)/launch/voice_nav_ws/castlex_voice_nav.launch"/>
+
+  <!-- 启动语音识别  -->
+  <include file="$(find castle_voice_system)/launch/voice_nav.launch"/>
+
+  <!-- 启动识别节点  -->
+  <node pkg="castlex_navigation" name="voice_nav_onePosition" type="voice_nav_onePosition.py"/>   
+
+</launch>

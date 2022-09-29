@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<launch>
+
+  <!-- 启动底盘  -->
+  <include file="$(find castlex_bringup)/launch/test.launch"/>
+
+  <!-- 启动导航  -->
+  <include file="$(find castlex_navigation)/launch/auto_ws/move_base.launch"/>
+
+  <!-- 启动语音识别  -->
+  <include file="$(find castlex_voice_system)/launch/castlex_auto.launch"/>
+
+  <!-- 超声波start -->
+  <!-- 设置机器人离障碍物的距离 -->
+  <group ns="Distance">
+      <param name="N" value="0.10" />    <!-- 靠近障碍物多远停下来 -->
+      <param name="F" value="0.70" />    <!-- 远离障碍物多远停下来 -->
+  </group>
+
+  <!-- 设置机器人运动时的速度 -->
+  <group ns="Speed">
+      <param name="F" value="0.05" />     <!-- 靠近障碍物的速度 -->
+      <param name="B" value="0.1" />     <!-- 远离障碍物的速度 -->
+  </group>
+
+  <!-- 启动超声波节点  -->
+  <node pkg="object_detect" name="ultrasonic_control" type="ultrasonic_control.py"/>   
+  
+  <!-- 超声波end -->
+  <!-- 启动相机节点  -->
+  <include file="$(find usb_cam)/launch/usb_cam-test.launch"/>
+  <!-- 启动物体识别节点  -->
+  <!--node pkg="object_detect" name="object" type="castlex_auto.py" output="screen"-->   
+  <node pkg="object_detect" name="object" type="castlex_auto_new.py" output="screen">   
+      <remap from="input_rgb_image" to="/usb_cam/image_raw" />      
+  </node>
+
+  <!-- 启动导航去第一个目标点  -->
+  <node pkg="castlex_navigation" name="auto_OnePosition" type="auto_OnePosition.py"/>   
+  <!-- 启动导航去第二个目标点  -->
+  <node pkg="castlex_navigation" name="auto_TwoPosition" type="auto_TwoPosition.py"/>  
+  <!-- 启动订阅cv_bridge_image话题  -->
+  <node name="rqt_image_view" pkg="rqt_image_view" type="rqt_image_view" args="/usb_cam/image_raw"/>
+
+  <!-- 启动机械臂驱动  -->
+  <node pkg="dobot" type="DobotServer" name="DobotServer" args="dobot" />
+
+</launch>

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?><nlp>
+  <version>1.1</version>
+  <rawtext>去客厅</rawtext>
+  <confidence>100</confidence>
+  <engine>local</engine>
+  <result>
+    <focus>action|position</focus>
+    <confidence>100|100</confidence>
+    <object>
+      <action id="65535">去</action>
+      <position id="0">客厅</position>
+    </object>
+  </result>
+</nlp>
+

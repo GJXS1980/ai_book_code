@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<launch>
+	<include file="$(find castle_stm32_bridge)/launch/castle_stm32_bridge.launch" />
+	<include file="$(find skeleton_track)/launch/skeleton_track.launch" />
+	<node pkg="castlex_follow" type="castlex_follow_node" name="castlex_follow_node">
+		<remap from="follow_vel" to="/cmd_vel"/>
+	</node>
+</launch>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<launch>
+    <!--运行科大讯飞在线语音识别功能包-->
+    <node pkg = "xf_awake" type = "castle_castlex_awake_node" name = "castle_castlex_awake_node">
+        <!--修改appid，创建每个服务都有唯一的appid-->
+        <!-- 有效期至2019-10-13 -->
+        <param name="appid" value="appid = 551d49a3,work_dir = ." />
+    </node>
+</launch>

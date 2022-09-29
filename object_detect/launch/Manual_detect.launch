@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<launch>
+
+    <group ns="color">
+      <param name="id" value="0" />   <!-- 选择识别的颜色 -->
+    </group>
+
+    <!-- 启动机械臂  -->
+  <node pkg="dobot" type="DobotServer" name="DobotServer" args="dobot" />
+
+    <!-- 初始化机械臂位置  -->
+  <node pkg="dobot" type="dobot_init_client" name="dobot_init_client" />
+  <node pkg="dobot" type="dobot_init_server" name="dobot_init_server" />
+
+    <!-- 初始化机械臂识别物体位置  -->
+        <!-- 初始化机械臂识别物体位置的客户端  -->
+  <node pkg="dobot" type="dobot_object_detect_client" name="dobot_object_detect_client" >
+   <!-- 是否启动重复识别操作（0代表不启动，3代表启动） -->   
+  <param name="select_tag" value="0" />
+  </node>
+
+        <!-- 初始化机械臂识别物体位置的服务器端  -->
+  <node pkg="dobot" type="dobot_object_detect_server" name="dobot_object_detect_server" >
+    <!-- 识别物体时机械臂的x坐标(笛卡尔坐标系)  -->
+  <param name="detect_x" value="230.0" />   
+
+    <!-- 识别物体时机械臂的y坐标(笛卡尔坐标系)  -->  
+  <param name="detect_y" value="0.0" />  
+
+   <!-- 识别物体时机械臂的z坐标(笛卡尔坐标系) -->   
+  <param name="detect_z" value="120.0" />
+  </node>
+
+    <!-- 启动相机节点  -->
+  <include file="$(find usb_cam)/launch/usb_cam-test.launch"/>
+
+    <node pkg="object_detect" name="Manual_detect" type="Manual_detect.py" output="screen">   
+        <remap from="input_rgb_image" to="/usb_cam/image_raw" />  
+    </node>
+
+    <!-- 启动订阅cv_bridge_image话题  -->
+    <node name="rqt_image_view" pkg="rqt_image_view" type="rqt_image_view" args="/usb_cam/image_raw"/>
+
+    <!-- 物体抓取的客户端  -->
+  <node pkg="dobot" type="dobot_pick_up_client" name="dobot_pick_up_client" />
+
+      <!-- 物体抓取的服务器端  -->
+  <node pkg="dobot" type="dobot_pick_up_server" name="dobot_pick_up_server">
+
+   <!-- 机械臂识别完物体之后运动的坐标  -->   
+  <param name="control_x" value="230.0" />
+  <param name="control_y" value="0.0" />
+  <param name="control_z" value="30.0" />
+
+  </node>
+
+</launch>

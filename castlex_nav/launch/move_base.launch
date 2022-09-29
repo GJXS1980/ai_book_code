@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<launch>
+  <!-- 启动move_base节点 -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <param name="allow_unknown" value="false" />
+    <param name="shutdown_costmaps" value="false" />
+    <param name="controller_frequency" value="5.0" /> <!--原来参数为5-->
+    <param name="controller_patience" value="3.0" /> <!--原来参数为3-->
+    <param name="planner_patience" value="5.0" />
+    <param name="controller_patience" value="3.0" />
+    <param name="conservative_reset_dist" value="3.0" />
+    <param name="planner_frequency" value="1.0" />
+    <param name="oscillation_timeout" value="10.0" />
+    <param name="oscillation_distance" value="0.22" />
+
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+    <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" />
+    <rosparam file="$(find castlex_navigation)/params/large/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find castlex_navigation)/params/large/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find castlex_navigation)/params/large/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find castlex_navigation)/params/large/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find castlex_navigation)/params/large/global_planner_params.yaml" command="load" />
+    <rosparam file="$(find castlex_navigation)/params/large/dwa_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find castlex_navigation)/params/large/base_local_planner_params.yaml" command="load" />
+  </node>
+  <!--node name="rviz" pkg="rviz" type="rviz" args="-d $(find castlex_navigation)/rviz/test.rviz" required="true" /-->
+
+</launch>

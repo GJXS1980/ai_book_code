@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<launch>
+  <!-- cmd_vel 多路切换 -->
+  <arg name="config_file"           default="$(find castlex_control)/param/castle_cmd_vel_mux.yaml"/>
+  <include file="$(find yocs_cmd_vel_mux)/launch/standalone.launch">
+    <param name="yaml_cfg_file" value="$(arg config_file)"/>
+  </include>
+</launch>

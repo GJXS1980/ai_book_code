@@ -1,0 +1,10 @@
+﻿#BNF+IAT 1.0 UTF-8;
+!grammar call;
+!slot <action>;
+
+!start <callstart>;
+<callstart>:<action>
+<action>:向前!id(0)|前进!id(0)|正方向!id(0)|正方形移动!id(0)|
+向后!id(1)|后退!id(1)|负方向!id(1)|负方向移动!id(1)|
+向左!id(2)|左转!id(2)|逆时针!id(2)|逆时针旋转!id(2)|
+向右!id(3)|右转!id(1)|顺时针!id(3)|顺时针旋转!id(3)|

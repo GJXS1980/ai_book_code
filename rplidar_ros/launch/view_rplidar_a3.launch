@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<launch>
+  <include file="$(find rplidar_ros)/launch/rplidar_a3.launch" />
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rplidar_ros)/rviz/rplidar.rviz" />
+</launch>

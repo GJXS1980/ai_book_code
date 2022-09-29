@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<launch>
+  <!-- 启动 castle-x 机器人 -->
+  <include file="$(find castle_stm32_bridge)/launch/castle_stm32_bridge.launch"/>
+  <!-- 启动手柄 joy -->
+  <include file="$(find castlex_control)/launch/castlex_teleop_joy.launch"/>
+  <!-- 启动 rplidar 激光雷达 -->
+  <include file="$(find rplidar_ros)/launch/rplidar_A2.launch"/>
+  <!-- 启动 gmapping 节点 -->
+  <include file="$(find castlex_slam)/launch/include/gmpping.launch.xml"/>
+  <!-- 启动 rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $ (find castlex_rviz)/rviz/gmapping.rviz" />
+</launch>

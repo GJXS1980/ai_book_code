@@ -1,0 +1,14 @@
+﻿﻿#BNF+IAT 1.0 UTF-8;
+!grammar call;
+!slot <action>;
+!slot <position>;
+
+!start <callstart>;
+<callstart>:[<action>]<dial>;
+<action>:去|到|去到|往|前往|前进到|跑到|跑;
+
+<dial>:<position>;
+<position>:客厅!id(0)|客!id(0)|厅!id(0)|大厅!id(0)|
+卧室!id(1)|卧!id(1)|室!id(1)|房间!id(1)|
+厨房!id(2)|厨!id(2)|房!id(2)|
+阳台!id(3)|阳!id(3)|台!id(3);

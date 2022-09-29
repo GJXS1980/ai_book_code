@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<launch>
+
+  <arg name="joy_dev" default="/dev/input/js1"/>
+
+  <node pkg="joy" type="joy_node" name="joy_node" output="log" respawn="false" respawn_delay="0">
+    <param name="dev" value="$(arg joy_dev)"/>
+  </node>
+  <!-- 节点功能:
+          1.将joystick节点发布的joy话题进行包装,即在摇杆推到底或者持续按住按键时保持话题的持续发布
+          2.增加缓启动
+          3.速度限幅和加减速
+          4.急停
+  -->
+  <arg name="input_joy_topic" default="joy"/>
+  <arg name="output_joy_topic" default="cmd_vel"/>
+  <!-- 线速度单位:米/s -->
+  <!-- 角速度但是:弧度/s -->
+  <!-- (前进)初始线速度档位 -->
+  <arg name="linear_gears" default="0.1"/>
+  <!-- 线速度档位加减的间隔 -->
+  <arg name="linear_gears_step" default="0.02"/>
+  <!-- 线速度档位最大限制[m/s] -->
+  <arg name="linear_gears_max" default="1.0"/>
+  <!-- 线速度档位最小限制 -->
+  <arg name="linear_gears_min" default="0.02"/>
+  <!-- (转向)初始角速度档位 -->
+  <arg name="angular_gears" default="0.1"/>
+  <!-- 角速度档位加减的间隔 -->
+  <arg name="angular_gears_step" default="0.1"/>
+  <!-- 角速度档位最大限制[转/s] -->
+  <arg name="angular_gears_max" default="1.0"/>
+  <!-- 角速度档位最小限制 -->
+  <arg name="angular_gears_min" default="0.1"/>
+  <!-- 加速度 -->
+  <arg name="accelerate_linear" default="0.1"/>
+  <arg name="accelerate_augular" default="0.1"/>
+  <node pkg="castlex_control" type="castlex_teleop_joy.py" name="castle_teleop_joy" output="log" respawn="false" respawn_delay="0">
+    <!-- <remap from="output/joystick" to="joystick"/> -->
+    <param name="input_joy_topic" value="$(arg input_joy_topic)"/>
+    <param name="output_joy_topic" value="$(arg output_joy_topic)"/>
+    <param name="linear_gears" value="$(arg linear_gears)"/>
+    <param name="linear_gears_step" value="$(arg linear_gears_step)"/>
+    <param name="linear_gears_max" value="$(arg linear_gears_max)"/>
+    <param name="linear_gears" value="$(arg linear_gears)"/>
+    <param name="angular_gears" value="$(arg angular_gears)"/>
+    <param name="angular_gears_step" value="$(arg angular_gears_step)"/>
+    <param name="angular_gears_max" value="$(arg angular_gears_max)"/>
+    <param name="angular_gears_min" value="$(arg angular_gears_min)"/>
+
+    <param name="accelerate_linear" value="$(arg accelerate_linear)"/>
+    <param name="accelerate_augular" value="$(arg accelerate_augular)"/>
+    <!--remap from="$(arg output_joy_topic)" to="yocs_cmd_vel_mux/input/joystick"/-->
+  </node>
+</launch>

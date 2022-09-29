@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<launch>
+  <!-- 启动底盘  -->
+  <include file="$(find castlex_bringup)/launch/castlex_stm32_bridge.launch"/>
+
+  <!-- 启动导航  -->
+  <include file="$(find castlex_navigation)/launch/gmapping_ws/gampping.launch"/>
+
+  <!-- 启动键盘节点  -->
+  <node pkg="castlex_navigation" name="teleop_twist_keyboard" type="teleop_twist_keyboard.py"/> 
+
+  <node name="rplidarNode"          pkg="rplidar_ros"  type="rplidarNode_A2" output="screen">
+    <param name="serial_port"         type="string" value="/dev/rplidar"/>
+    <!-- param name="serial_port"         type="string" value="/dev/ttyUSB0"/ -->
+    <param name="serial_baudrate"     type="int"    value="115200"/><!--A1/A2 -->
+    <!--param name="serial_baudrate"     type="int"    value="256000"--><!--A3 -->
+    <param name="frame_id"            type="string" value="laser_frame"/>
+    <param name="inverted"            type="bool"   value="true"/>
+    <param name="angle_compensate"    type="bool"   value="true"/>
+    <param name="output_angle_max"    type="int"   value="90"/>
+    <param name="output_angle_min"    type="int"   value="-90"/>
+  </node>
+
+</launch>

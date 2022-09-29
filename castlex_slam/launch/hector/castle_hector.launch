@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<launch>
+<!--  激光雷达的位置  -->
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser4" 
+    args="0.12 0.0 0.15 0 0 0.0 /base_link /laser_frame 40" />
+  <!--  激光雷达  -->
+  <include file="$(find rplidar_ros)/launch/rplidar_A2.launch"/>
+
+  <!-- 启动底盘  -->
+  <include file="$(find castle_bringup)/launch/castle_bringup.launch"/>
+
+    <!-- 启动hector -->
+  <include file="$(find castle_slam)/launch/hector/hector.launch"/>
+
+    <!-- 加载服务机器人模型  -->
+  <include file="$(find castle_description)/launch/castlex_urdf.launch"/>
+
+  <!-- 启动键盘节点  -->
+  <include file="$(find castle_control)/launch/castle_teleop_key.launch"/> 
+
+  <!-- 启动RVIZ -->>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find castle_slam)/rviz/slam.rviz" required="true" />
+</launch>

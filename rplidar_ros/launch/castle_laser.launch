@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<launch>
+  <arg name="laser_type" default="A2" doc="type[A1, A2]"/>
+  <include file="$(find rplidar_ros)/launch/rplidar_$(arg laser_type).launch" />
+</launch>

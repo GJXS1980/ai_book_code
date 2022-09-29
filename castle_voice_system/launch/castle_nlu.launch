@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<launch>
+    <!--运行图灵在线语义理解功能包-->
+    <node pkg = "castle_voice_system" type = "castle_tl_nlu_node" name = "castle_tl_nlu_node" output="screen">
+        <param name="tuling_key" value="28547145be394c5cacfc5981e093836e" />
+        <param name="userid" value="HGcastle" />
+    </node>
+</launch>

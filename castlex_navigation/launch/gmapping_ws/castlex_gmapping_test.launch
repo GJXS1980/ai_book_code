@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<launch>
+
+  <!-- 启动底盘  -->
+  <include file="$(find castlex_bringup)/launch/castlex_stm32_bridge.launch"/>
+
+  <!-- 启动导航  -->
+  <include file="$(find castlex_navigation)/launch/gmapping_ws/gampping.launch"/>
+
+  <include file="$(find rplidar_ros)/launch/rplidar_A2.launch"/>
+  
+  <!-- 启动键盘节点  -->
+  <node pkg="castlex_navigation" name="teleop_twist_keyboard" type="teleop_twist_keyboard.py"/> 
+
+</launch>

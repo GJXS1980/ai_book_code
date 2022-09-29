@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<launch>
+
+  <!-- 启动底盘  -->
+  <include file="$(find castle_stm32_bridge)/launch/castle_stm32_bridge.launch" />
+
+ <!-- 启动手柄  -->
+  <include file="$(find castlex_control)/launch/castlex_teleop_joy.launch" />
+
+ <!-- 启动激光雷达  -->
+  <include file="$(find rplidar_ros)/launch/rplidar_A2.launch" />
+
+  <!-- 启动导航  -->
+  <include file="$(find castlex_navigation)/launch/amcl_ws/amcl.launch" />
+
+  <!-- 启动rviz  -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find castlex_rviz)/rviz/gmapping.rviz" />
+
+</launch>

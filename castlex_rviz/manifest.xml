@@ -1,0 +1,14 @@
+<package>
+  <description brief="castlex_rviz">
+
+     castlex_rviz
+
+  </description>
+  <author>Castlex</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/castlex_rviz</url>
+
+</package>
+
+
